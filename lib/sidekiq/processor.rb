@@ -158,7 +158,7 @@ module Sidekiq
       begin
         job_hash = Sidekiq.load_json(jobstr)
       rescue => ex
-        handle_exception(ex, {context: "Invalid JSON for job", jobstr: jobstr})
+        handle_exception(ex, {context: "Invalid JSON for job", jobstr: jobstr, uow: uow.inspect})
         now = Time.now.to_f
         redis do |conn|
           conn.multi do |xa|
